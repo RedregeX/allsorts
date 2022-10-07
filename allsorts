@@ -1,18 +1,35 @@
-using namespace std;
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <ctime>
+#include "drawingh.h"
+#include "bubblesort.h"
+#include <windows.h>
 using namespace sf;
 
 const int WINDOW_WIDTH = 1260;
 const int WINDOW_HEIGHT = 720;
-const int w = WINDOW_WIDTH/5;
+const int w = WINDOW_WIDTH / 5;
 const int h = WINDOW_HEIGHT;
 
-void drawArray(RenderWindow& window, int* array, int size) {
+void drawArray(RenderWindow& window, int* s, int size) {
     int width = WINDOW_WIDTH / w;
     for (int i = 0; i < w; i++) {
-        RectangleShape shape(Vector2f(width, array[i]));
-        shape.setPosition(width*i, h-array[i]);
+        RectangleShape shape(Vector2f(width, s[i]));
+        shape.setPosition(width * i, h - s[i]);
         shape.setFillColor(Color(255, 0, 0));
         window.draw(shape);
+    }
+}
+
+void bubblesort(int* s, int len, RenderWindow& window) {
+    for (int i = 0; i < len; i++) {
+        for (int j = len - 1; j > i; j--) {
+            if (s[j] < s[j - 1]) {
+                std::swap(s[j], s[j - 1]);
+                drawArray(window, s, len);
+                Sleep((2000));
+            }
+        }
     }
 }
 
@@ -36,11 +53,11 @@ int main() {
             if (event.type == sf::Event::Closed)
 
                 window.close();
-
+            std::cout << event.type << std::endl;
         }
 
         window.clear();
-        drawArray(window, s, w);
+        bubblesort(s, w, window);
         window.display();
 
     }
