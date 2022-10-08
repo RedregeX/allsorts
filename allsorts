@@ -27,7 +27,6 @@ void bubblesort(int* s, int len, RenderWindow& window) {
             if (s[j] < s[j - 1]) {
                 std::swap(s[j], s[j - 1]);
                 drawArray(window, s, len);
-                Sleep((2000));
             }
         }
     }
